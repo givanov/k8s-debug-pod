@@ -1,0 +1,79 @@
+{
+  "name": "k8s-debug-pod",
+  "description": "__A docker image with tools and utils for debugging things in a k8s cluster__",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/givanov/k8s-debug-pod.git"
+  },
+  "author": "givanov",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/github": "^7.0.7",
+    "@semantic-release/release-notes-generator": "^9.0.1",
+    "fstream": "^1.0.12",
+    "semantic-release": "^17.1.1",
+    "tar": "^6.0.2",
+    "env-ci": "5.0.2",
+    "minimist": ">=1.2.5"
+  },
+  "release": {
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "releaseRules": [
+            {
+              "type": "fix",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "type": "feat",
+              "release": "minor"
+            },
+            {
+              "type": "major",
+              "release": "major"
+            },
+            {
+              "type": "build",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "make export-tag-github-actions VERSION=v${nextRelease.version}"
+        }
+      ],
+      [
+        "@semantic-release/github"
+      ]
+    ],
+    "preset": "angular",
+    "branches": [
+      "master"
+    ],
+    "tagFormat": "v${version}",
+    "ci": false
+  },
+  "version": "0.0.0-development",
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "dependencies": {
+    "npm": ">=6.14.6",
+    "npm-check-updates": "^7.0.1",
+    "npm-registry-fetch": ">=8.1.1"
+  }
+}

@@ -1,5 +1,5 @@
 # k8s-debug-pod
-A repo containing a docker image with tools and utils for debugging things in a k8s cluster
+A docker image with tools and utils for debugging things in a k8s cluster
 
 ## Usage
 To spin up a temp pod run something similar to the following:
